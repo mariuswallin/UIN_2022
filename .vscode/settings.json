@@ -21,7 +21,6 @@
   "[jsonc]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "WillLuke.nextjs.hasPrompted": true,
-  "eslint.workingDirectories": ["./next_prisma_mvc"]
+  }
+  // "eslint.workingDirectories": ["./base_custom"]
 }
