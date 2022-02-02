@@ -1,13 +1,25 @@
-import MyComponent from './components/MyComponent'
+import { getEvent, getEvents } from './utils/eventService'
 
 function App() {
-  // Write JavaScript, use Hooks, add state and more
+  const getEventsData = async () => {
+    const events = await getEvents()
+    console.log(events)
+  }
+
+  const getEventData = async () => {
+    const slug = 'event-1'
+    const event = await getEvent(slug)
+    console.log(event)
+  }
 
   return (
     <main>
-      <p>Add JSX</p>
-      <p>Add components</p>
-      <MyComponent />
+      <button type="button" onClick={getEventsData}>
+        Hent data
+      </button>
+      <button type="button" onClick={getEventData}>
+        Hent data om et event
+      </button>
     </main>
   )
 }

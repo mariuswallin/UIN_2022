@@ -1,8 +1,10 @@
+import { MainHeading } from '../styles/styled/Styles'
+
 function MyComponent() {
   return (
     <div>
-      <h1>Component</h1>
-      <button>Test</button>
+      <MainHeading>Component</MainHeading>
+      <button type="button">Test</button>
     </div>
   )
 }

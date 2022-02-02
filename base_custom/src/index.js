@@ -1,7 +1,11 @@
 import ReactDOM from 'react-dom'
 
-// Importerer main.scss her slik at du kan bruke scss, eller css om du vil
-import './main.scss'
+// TODO: Kommenter ut om du ønsker å bruke .scss
+// import './styles/scss/main.scss'
+
+// TODO: Kommenter ut om du ikke ønsker å bruke tailwind
+import './styles/css/main.css'
+
 import App from './App'
 
 ReactDOM.render(<App />, document.getElementById('root'))
