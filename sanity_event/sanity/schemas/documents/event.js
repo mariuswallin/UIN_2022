@@ -37,6 +37,11 @@ const event = {
       type: "content",
     },
     {
+      name: "organizer",
+      type: "organizer",
+      title: "Arrangør",
+    },
+    {
       title: "Kategori",
       name: "category",
       type: "reference",
