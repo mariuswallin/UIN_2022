@@ -14,9 +14,9 @@ function App() {
         <Route element={<DefaultLayout />}>
           <Route index element={<Home />} />
           <Route path="hjem" element={<Home />} />
-          <Route path="events" element={<Events />}>
+          <Route path="events">
             <Route index element={<Events />} />
-            <Route path=":id" element={<Event />} />
+            <Route path=":slug" element={<Event />} />
           </Route>
         </Route>
       </Routes>

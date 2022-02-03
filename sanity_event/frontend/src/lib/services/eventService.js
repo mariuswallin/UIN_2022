@@ -4,6 +4,7 @@ const eventFields = `
   title,
   'slug': slug.current,
   preAmble,
+  'image': image{alternativeText, caption, asset->{url}},
   'category': category->title,
 `
 
@@ -14,8 +15,9 @@ export const getEvents = async () => {
 
 export const getEvent = async (slug) => {
   const data = await client.fetch(
-    `*[_type == "event" && slug.current == $slug]{${eventFields}}`,
+    `*[_type == "event" && slug.current == $slug]{${eventFields}
+    body[]{...}}`,
     { slug }
   )
-  return data
+  return data?.[0]
 }
