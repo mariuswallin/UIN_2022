@@ -21,6 +21,7 @@ const content = {
         ],
       },
     },
+    { type: "customImage" },
   ],
 };
 
