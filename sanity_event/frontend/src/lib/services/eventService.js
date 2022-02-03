@@ -6,6 +6,7 @@ const eventFields = `
   preAmble,
   'image': image{alternativeText, caption, asset->{url}},
   'category': category->title,
+  organizer,
 `
 
 export const getEvents = async () => {
