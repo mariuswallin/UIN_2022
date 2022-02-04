@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components/macro'
 
 const StyledArticle = styled.article`
   display: block;
@@ -10,7 +10,7 @@ const StyledArticle = styled.article`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
   border-radius: 0;
   position: relative;
-`;
+`
 
 const StyledCardContent = styled.section`
   position: absolute;
@@ -23,17 +23,17 @@ const StyledCardContent = styled.section`
   &:hover {
     bottom: 0;
   }
-`;
+`
 
 const StyledCardH2 = styled.h2`
   color: #fff;
   font-size: 1.5rem;
   font-weight: 900;
-`;
+`
 
 const StyledCardImage = styled.img`
   max-width: 100%;
-`;
+`
 
 const StyledCardLink = styled.a`
   display: inline-block;
@@ -54,27 +54,28 @@ const StyledCardLink = styled.a`
     background-color: #fff;
     color: #333;
   }
-`;
+`
 
 const StyledCardText = styled.p`
   font-size: 1.2rem;
   line-height: 2.4rem;
   color: #fff;
-`;
+`
 
-const Card = ({ img, title, text, link }) => (
-  <StyledArticle>
-    <StyledCardImage src={img?.asset?.url} alt={img?.alt} />
-    <StyledCardContent>
-      <StyledCardH2>{title}</StyledCardH2>
-      <StyledCardText>{text}</StyledCardText>
-      {link?.length > 0 &&
-        link.map((l) => (
-          <StyledCardLink key={l?._key} href={l?.href}>
-            {l?.name}
-          </StyledCardLink>
-        ))}
-    </StyledCardContent>
-  </StyledArticle>
-);
-export default Card;
+export default function Card({ img, title, text, link }) {
+  return (
+    <StyledArticle>
+      <StyledCardImage src={img?.asset?.url} alt={img?.alt} />
+      <StyledCardContent>
+        <StyledCardH2>{title}</StyledCardH2>
+        <StyledCardText>{text}</StyledCardText>
+        {link?.length > 0 &&
+          link.map((l) => (
+            <StyledCardLink key={l?._key} href={l?.href}>
+              {l?.name}
+            </StyledCardLink>
+          ))}
+      </StyledCardContent>
+    </StyledArticle>
+  )
+}

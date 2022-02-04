@@ -1,4 +1,4 @@
-import client from './client';
+import client from './client'
 
 const pageFields = `
   'hero': hero{_key, title, text, 'links': links[]{_key, name, href}, 'img': image{..., asset->{url}}},
@@ -6,7 +6,7 @@ const pageFields = `
   'slug': slug.current,
   lead,
   'cards': cards[]{_key, title, text, 'link': link[]{_key, name, href}, 'img': image{..., asset->{url}}}
-  `;
+  `
 
 export const getPage = async (slug) => {
   const data = await client.fetch(
@@ -14,6 +14,6 @@ export const getPage = async (slug) => {
     {
       slug,
     }
-  );
-  return data?.[0];
-};
+  )
+  return data?.[0]
+}

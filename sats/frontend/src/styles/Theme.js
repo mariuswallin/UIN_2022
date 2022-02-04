@@ -1,5 +1,5 @@
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from './Global';
+import { ThemeProvider } from 'styled-components'
+import { GlobalStyles } from './Global'
 
 const theme = {
   nav: {
@@ -11,13 +11,15 @@ const theme = {
     medium: '992px',
     small: '767px',
   },
-};
+}
 
-const Theme = ({ children }) => (
-  <>
-    <GlobalStyles />
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
-  </>
-);
+function Theme({ children }) {
+  return (
+    <>
+      <GlobalStyles />
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    </>
+  )
+}
 
-export default Theme;
+export default Theme

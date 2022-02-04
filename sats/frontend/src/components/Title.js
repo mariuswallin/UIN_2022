@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components/macro'
 
 const StyledH1 = styled.h1`
   text-align: center;
@@ -10,8 +10,8 @@ const StyledH1 = styled.h1`
   line-height: 1.125;
   text-transform: uppercase;
   font-style: italic;
-`;
+`
 
-const Title = ({ title }) => <StyledH1>{title}</StyledH1>;
-
-export default Title;
+export default function Title({ title }) {
+  return <StyledH1>{title}</StyledH1>
+}

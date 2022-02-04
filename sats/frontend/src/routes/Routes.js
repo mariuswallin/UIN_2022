@@ -1,44 +1,35 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Navigation from '../components/Navigation';
-import DefaultLayout from '../layouts/DefaultLayout';
-import Booking from '../pages/Booking';
-import GroupClass from '../pages/GroupClass';
-import GroupTraining from '../pages/GroupTraining';
-import GroupClassRefactored from '../pages/GroupClassRefactored';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Navigation from '../components/Navigation'
+import DefaultLayout from '../layouts/DefaultLayout'
+import Booking from '../pages/Booking'
+// import GroupClass from '../pages/GroupClass'
+import GroupTraining from '../pages/GroupTraining'
+import GroupClassRefactored from '../pages/GroupClassRefactored'
 
-import Home from '../pages/Home';
-import Trainings from '../pages/Trainings';
-import TrainingsRefactored from '../pages/TrainingsRefactored';
+import Home from '../pages/Home'
+// import Trainings from '../pages/Trainings'
+import TrainingsRefactored from '../pages/TrainingsRefactored'
 
-const SatsRoutes = () => (
-  <Router>
-    <Navigation />
-    <DefaultLayout>
-      <Routes>
-        <Route exact path="/">
-          <Home />
+function SatsRoutes() {
+  return (
+    <Router>
+      <Navigation />
+      <Routes element={<DefaultLayout />}>
+        <Route>
+          <Route index element={<Home />} />
+          <Route path="hjem" element={<Home />} />
+          {/* <Route path="/trening" element={<Trainings />} /> */}
+          <Route path="trening" element={<TrainingsRefactored />} />
+          <Route path="booking" element={<Booking />} />
+          <Route path="gruppetrening">
+            <Route index element={<GroupTraining />} />
+            <Route path=":slug" element={<GroupClassRefactored />} />
+          </Route>
+          {/* <Route  path="/gruppetrening/:slug" element={<GroupClass />} /> */}
         </Route>
-        {/* <Route exact path="/trening">
-          <Trainings />
-        </Route> */}
-        <Route exact path="/trening">
-          <TrainingsRefactored />
-        </Route>
-        <Route exact path="/booking">
-          <Booking />
-        </Route>
-        <Route exact path="/gruppetrening">
-          <GroupTraining />
-        </Route>
-        <Route exact path="/gruppetrening/:slug">
-          <GroupClassRefactored />
-        </Route>
-        {/* <Route exact path="/gruppetrening/:slug">
-          <GroupClass />
-        </Route> */}
       </Routes>
-    </DefaultLayout>
-  </Router>
-);
+    </Router>
+  )
+}
 
-export default SatsRoutes;
+export default SatsRoutes

@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components/macro'
 
 export const Container = styled.section`
   padding-right: 1rem;
@@ -14,4 +14,4 @@ export const Container = styled.section`
   @media (min-width: ${({ theme }) => theme.breakpoints.small}) {
     width: 740px;
   }
-`;
+`

@@ -1,6 +1,6 @@
 // import Page from '../components/Page';
-import PageRefactored from '../components/PageRefactored';
+import PageRefactored from '../components/PageRefactored'
 
-const GroupClassRefactored = () => <PageRefactored />;
-
-export default GroupClassRefactored;
+export default function GroupClassRefactored() {
+  return <PageRefactored />
+}

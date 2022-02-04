@@ -1,35 +1,36 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container } from '../styles/Styles';
-import { getPage } from '../utils/pageService';
-import Card from './Card';
-import Cards from './Cards';
-import Hero from './Hero';
-import Lead from './Lead';
-import Title from './Title';
+/* eslint-disable react/jsx-props-no-spreading */
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Container } from '../styles/Styles'
+import { getPage } from '../utils/pageService'
+import Card from './Card'
+import Cards from './Cards'
+import Hero from './Hero'
+import Lead from './Lead'
+import Title from './Title'
 
-const Page = ({ url }) => {
-  const { slug } = useParams();
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+export default function Page({ url }) {
+  const { slug } = useParams()
+  const [data, setData] = useState(null)
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     const fetchDataAsync = async () => {
-      setLoading(true);
+      setLoading(true)
       try {
-        const page = await getPage(url || slug);
-        setData(page);
+        const page = await getPage(url || slug)
+        setData(page)
       } catch (error) {
-        setError(error);
+        setError(error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchDataAsync();
-  }, [url, slug]);
+    }
+    fetchDataAsync()
+  }, [url, slug])
 
-  if (loading) return <p>Loading ...</p>;
-  if (!data && error) return <p>{error?.message}</p>;
+  if (loading) return <p>Loading ...</p>
+  if (!data && error) return <p>{error?.message}</p>
 
   return (
     <>
@@ -53,7 +54,5 @@ const Page = ({ url }) => {
         </Cards>
       )}
     </>
-  );
-};
-
-export default Page;
+  )
+}

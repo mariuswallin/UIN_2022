@@ -1,17 +1,17 @@
-import { usePage } from '../hooks/usePage';
-import { Container } from '../styles/Styles';
-import Card from './Card';
-import Cards from './Cards';
-import Hero from './Hero';
-import Lead from './Lead';
-import Title from './Title';
+/* eslint-disable react/jsx-props-no-spreading */
+import { usePage } from '../hooks/usePage'
+import { Container } from '../styles/Styles'
+import Card from './Card'
+import Cards from './Cards'
+import Hero from './Hero'
+import Lead from './Lead'
+import Title from './Title'
 
-const PageRefactored = ({ url }) => {
-  const { status, data } = usePage(url);
+export default function PageRefactored({ url }) {
+  const { status, data } = usePage(url)
 
-  if (status === 'loading') return <p>Loading ...</p>;
-  if (status === 'error')
-    return <p>Feil med henting av data {data?.message}</p>;
+  if (status === 'loading') return <p>Loading ...</p>
+  if (status === 'error') return <p>Feil med henting av data {data?.message}</p>
 
   return (
     <>
@@ -35,7 +35,5 @@ const PageRefactored = ({ url }) => {
         )}
       </Container>
     </>
-  );
-};
-
-export default PageRefactored;
+  )
+}

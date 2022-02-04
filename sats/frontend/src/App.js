@@ -1,5 +1,5 @@
-import Routes from './routes/Routes';
-import Theme from './styles/Theme';
+import SatsRoutes from './routes/Routes'
+import Theme from './styles/Theme'
 
 /**
  * Importerer Routes her da den "styrer" hele applikasjonen
@@ -9,9 +9,9 @@ import Theme from './styles/Theme';
 function App() {
   return (
     <Theme>
-      <Routes />
+      <SatsRoutes />
     </Theme>
-  );
+  )
 }
 
-export default App;
+export default App
