@@ -30,7 +30,7 @@ export default function Event() {
     }
     getEventData()
   }, [slug])
-
+  console.log(event?.organizer)
   if (!event && error) return <div>Noe gikk galt ...</div>
   if (!event && loading) return <div>Henter event ... </div>
 
@@ -41,7 +41,8 @@ export default function Event() {
         {event?.category}
       </p>
       <Title title={event?.title} />
-      <p className="italic text-sm my-4">{event?.preAmble}</p>
+      <span className="italic text-xs">av {event?.organizer?.name}</span>
+      <p className="text-base my-4">{event?.preAmble}</p>
       {/* Bruker urlFor for å få url til bildet */}
       {/* Bruker andre funksjoner som .width for å se noe om bredde og format */}
       {event?.image ? (
