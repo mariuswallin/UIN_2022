@@ -11,7 +11,7 @@ export default function GroupClass() {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   useEffect(() => {
-    const fetchDataAsync = async () => {
+    const getPageData = async () => {
       setLoading(true)
       try {
         const page = await getPage(slug)
@@ -22,7 +22,7 @@ export default function GroupClass() {
         setLoading(false)
       }
     }
-    fetchDataAsync()
+    getPageData()
   }, [slug])
 
   if (loading) return <p>Loading ...</p>

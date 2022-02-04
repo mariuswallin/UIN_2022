@@ -14,8 +14,9 @@ export default function GroupTraining() {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+
   useEffect(() => {
-    const fetchDataAsync = async () => {
+    const getPageData = async () => {
       setLoading(true)
       try {
         const slug = pathname.split('/')
@@ -27,7 +28,7 @@ export default function GroupTraining() {
         setLoading(false)
       }
     }
-    fetchDataAsync()
+    getPageData()
   }, [pathname])
 
   if (loading) return <p>Loading ...</p>

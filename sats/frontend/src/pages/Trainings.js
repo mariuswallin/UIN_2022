@@ -54,7 +54,7 @@ export default function Trainings() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const fetchDataAsync = async () => {
+    const getPageData = async () => {
       setLoading(true)
       try {
         const page = await getPage('trening')
@@ -65,7 +65,7 @@ export default function Trainings() {
         setLoading(false)
       }
     }
-    fetchDataAsync()
+    getPageData()
   }, [])
 
   if (loading) return <p>Loading ...</p>
