@@ -1,4 +1,5 @@
 // import Navbar from './components/Navbar'
+import { useState } from 'react'
 import './styles/css/main.css'
 
 function Navbar({ title }) {
@@ -38,34 +39,53 @@ function Screen() {
   )
 }
 
-function Podcast() {
+function Podcast({ podcast }) {
   return (
     <>
-      <h2 className="text-center mt-6">#02 - Practice</h2>
+      <h2 className="text-center mt-6">
+        #{podcast?.order} - {podcast?.title}
+      </h2>
       <p className="text-center text-gray-400 text-sm font-semibold mt-2">
-        Digital Marketing - By Setup Cast
+        {podcast?.genre} - By {podcast?.author}
       </p>
     </>
   )
 }
 
-function Action() {
+function Action({
+  setCurrent,
+  handleBack,
+  isPlaying,
+  handlePlay,
+  handlePause,
+}) {
+  const handleNext = () => {
+    console.log('CLICKED')
+    setCurrent((prev) => prev + 1)
+  }
+
   return (
     <div className="flex items-center justify-center" id="actions">
-      <button type="button" id="rewind">
+      <button type="button" id="rewind" onClick={handleBack}>
         <img alt="dots" className="icon" src="/rewind.svg" />
       </button>
-      <button type="button" id="play">
-        <img alt="play" className="icon" src="/play.svg" />
-      </button>
-      <button type="button" id="forward">
+      {isPlaying ? (
+        <button type="button" id="play" onClick={handlePause}>
+          <img alt="pause" className="icon" src="/pause.svg" />
+        </button>
+      ) : (
+        <button type="button" id="play" onClick={handlePlay}>
+          <img alt="play" className="icon" src="/play.svg" />
+        </button>
+      )}
+      <button type="button" id="forward" onClick={handleNext}>
         <img alt="forward" className="icon" src="/forward.svg" />
       </button>
     </div>
   )
 }
 
-function Status() {
+function Status({ duration }) {
   return (
     <div
       className="flex mt-4 items-center justify-center w-full text-md"
@@ -76,19 +96,23 @@ function Status() {
         <div style={{ width: '50%' }} />
         <div style={{ left: '50%' }} />
       </div>
-      <p className="text-gray-400 font-semibold">12:02</p>
+      <p className="text-gray-400 font-semibold">{duration}</p>
     </div>
   )
 }
 
-function HistoryItem() {
+function HistoryItem({ order, title, author, duration }) {
   return (
     <li className="flex items-center">
       <div />
       <div className="flex items-center">
         <p>
-          <span className="font-semibold text-lg">#01 - Start with SEO</span>
-          <span className="text-sm text-gray-500">By Setup Cast - 15:35</span>
+          <span className="font-semibold text-lg">
+            #{order} - {title}
+          </span>
+          <span className="text-sm text-gray-500">
+            By {author} - {duration}
+          </span>
         </p>
         <button type="button">
           <img alt="play" className="icon" src="/play.svg" />
@@ -104,14 +128,20 @@ function History({ history }) {
       <h3 className="font-semibold text-xl text-gray-600">Recently played</h3>
       <ul className="list-style-none">
         {history?.map((podcast) => (
-          <HistoryItem key={podcast.id} />
+          <HistoryItem
+            key={podcast.id}
+            order={podcast.order}
+            title={podcast.title}
+            duration={podcast.duration}
+            author={podcast.author}
+          />
         ))}
       </ul>
     </div>
   )
 }
 
-const initialHistory = [
+const podcasts = [
   {
     id: 1,
     title: 'Leaders eat last',
@@ -139,14 +169,38 @@ const initialHistory = [
 ]
 
 export default function App() {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [current, setCurrent] = useState(0)
+
+  const handleBack = () => {
+    console.log('CLICKED BACK')
+    setCurrent((prev) => prev - 1)
+  }
+
+  const handlePlay = () => {
+    console.log('PLAY')
+    setIsPlaying(!isPlaying)
+  }
+
+  const handlePause = () => {
+    console.log('PAUSE')
+    setIsPlaying(!isPlaying)
+  }
+
   return (
     <main>
       <Navbar title="Now playing" />
       <Screen />
-      <Podcast />
-      <Status />
-      <Action />
-      <History history={initialHistory} />
+      <Podcast podcast={podcasts[current]} />
+      <Status duration={podcasts[current]?.duration} />
+      <Action
+        isPlaying={isPlaying}
+        setCurrent={setCurrent}
+        handleBack={handleBack}
+        handlePlay={handlePlay}
+        handlePause={handlePause}
+      />
+      <History history={podcasts} />
     </main>
   )
 }
