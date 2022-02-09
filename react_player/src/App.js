@@ -1,21 +1,21 @@
-import Navbar from './components/Navbar'
+// import Navbar from './components/Navbar'
 import './styles/css/main.css'
 
-// function Navbar({ title }) {
-//   return (
-//     <nav>
-//       <ul className="flex justify-between items-center list-style-none">
-//         <li>
-//           <img alt="arrow" className="icon-small" src="/arrow.svg" />
-//         </li>
-//         <li className="text-gray-600 text-xl font-semibold">{title}</li>
-//         <li>
-//           <img alt="dots" className="icon" src="/dots.svg" />
-//         </li>
-//       </ul>
-//     </nav>
-//   )
-// }
+function Navbar({ title }) {
+  return (
+    <nav>
+      <ul className="flex justify-between items-center list-style-none">
+        <li>
+          <img alt="arrow" className="icon-small" src="/arrow.svg" />
+        </li>
+        <li className="text-gray-600 text-xl font-semibold">{title}</li>
+        <li>
+          <img alt="dots" className="icon" src="/dots.svg" />
+        </li>
+      </ul>
+    </nav>
+  )
+}
 
 function Screen() {
   return (
@@ -81,63 +81,62 @@ function Status() {
   )
 }
 
-function History() {
+function HistoryItem() {
+  return (
+    <li className="flex items-center">
+      <div />
+      <div className="flex items-center">
+        <p>
+          <span className="font-semibold text-lg">#01 - Start with SEO</span>
+          <span className="text-sm text-gray-500">By Setup Cast - 15:35</span>
+        </p>
+        <button type="button">
+          <img alt="play" className="icon" src="/play.svg" />
+        </button>
+      </div>
+    </li>
+  )
+}
+
+function History({ history }) {
   return (
     <div id="history">
       <h3 className="font-semibold text-xl text-gray-600">Recently played</h3>
       <ul className="list-style-none">
-        <li className="flex items-center">
-          <div />
-          <div className="flex items-center">
-            <p>
-              <span className="font-semibold text-lg">
-                #01 - Start with SEO
-              </span>
-              <span className="text-sm text-gray-500">
-                By Setup Cast - 15:35
-              </span>
-            </p>
-            <button type="button">
-              <img alt="play" className="icon" src="/play.svg" />
-            </button>
-          </div>
-        </li>
-        <li className="flex items-center">
-          <div />
-          <div className="flex items-center">
-            <p>
-              <span className="font-semibold text-lg">
-                #01 - Start with SEO
-              </span>
-              <span className="text-sm text-gray-500">
-                By Setup Cast - 15:35
-              </span>
-            </p>
-            <button type="button">
-              <img alt="play" className="icon" src="/play.svg" />
-            </button>
-          </div>
-        </li>
-        <li className="flex items-center">
-          <div />
-          <div className="flex items-center">
-            <p>
-              <span className="font-semibold text-lg">
-                #01 - Start with SEO
-              </span>
-              <span className="text-sm text-gray-500">
-                By Setup Cast - 15:35
-              </span>
-            </p>
-            <button type="button">
-              <img alt="play" className="icon" src="/play.svg" />
-            </button>
-          </div>
-        </li>
+        {history?.map((podcast) => (
+          <HistoryItem key={podcast.id} />
+        ))}
       </ul>
     </div>
   )
 }
+
+const initialHistory = [
+  {
+    id: 1,
+    title: 'Leaders eat last',
+    author: 'Simon Sinek',
+    duration: '12.25',
+    order: 1,
+    genre: 'Business',
+  },
+  {
+    id: 2,
+    title: 'Purple Cow',
+    author: 'Seth Godin',
+    duration: '10.25',
+    order: 2,
+    genre: 'Marketing',
+  },
+  {
+    id: 3,
+    title: 'The design of everyday things',
+    author: 'Don Norman',
+    duration: '09.25',
+    order: 3,
+    genre: 'Design',
+  },
+]
 
 export default function App() {
   return (
@@ -147,7 +146,7 @@ export default function App() {
       <Podcast />
       <Status />
       <Action />
-      <History />
+      <History history={initialHistory} />
     </main>
   )
 }
