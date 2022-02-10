@@ -32,8 +32,9 @@
     "node-sass": "^7.0.1",
     "postcss": "^8.4.6",
     "prettier": "^2.5.1",
-    "tailwindcss": "^3.0.18",
-    "styled-components": "^5.3.3"
+    "prettier-plugin-tailwindcss": "^0.1.7",
+    "styled-components": "^5.3.3",
+    "tailwindcss": "^3.0.18"
   },
   "scripts": {
     "start": "react-scripts start",
