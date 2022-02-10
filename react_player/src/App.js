@@ -1,146 +1,14 @@
-// import Navbar from './components/Navbar'
+// Importerer useState så vi kan bruke den til å holde på endringer i tilstand
 import { useState } from 'react'
-import './styles/css/main.css'
+// Importerer nødvendige komponenter fra components mappen
+import Action from './components/Action'
+import History from './components/History'
+import Navbar from './components/Navbar'
+import Podcast from './components/Podcast'
+import Screen from './components/Screen'
+import Status from './components/Status'
 
-function Navbar({ title }) {
-  return (
-    <nav>
-      <ul className="flex justify-between items-center list-style-none">
-        <li>
-          <img alt="arrow" className="icon-small" src="/arrow.svg" />
-        </li>
-        <li className="text-gray-600 text-xl font-semibold">{title}</li>
-        <li>
-          <img alt="dots" className="icon" src="/dots.svg" />
-        </li>
-      </ul>
-    </nav>
-  )
-}
-
-function Screen() {
-  return (
-    <div id="screen">
-      <div>
-        <div />
-        <div />
-      </div>
-      <div>
-        <div />
-        <div />
-      </div>
-      <div>
-        <div />
-      </div>
-      <div>
-        <div />
-      </div>
-    </div>
-  )
-}
-
-function Podcast({ podcast }) {
-  return (
-    <>
-      <h2 className="text-center mt-6">
-        #{podcast?.order} - {podcast?.title}
-      </h2>
-      <p className="text-center text-gray-400 text-sm font-semibold mt-2">
-        {podcast?.genre} - By {podcast?.author}
-      </p>
-    </>
-  )
-}
-
-function Action({
-  setCurrent,
-  handleBack,
-  isPlaying,
-  handlePlay,
-  handlePause,
-}) {
-  const handleNext = () => {
-    console.log('CLICKED')
-    setCurrent((prev) => prev + 1)
-  }
-
-  return (
-    <div className="flex items-center justify-center" id="actions">
-      <button type="button" id="rewind" onClick={handleBack}>
-        <img alt="dots" className="icon" src="/rewind.svg" />
-      </button>
-      {isPlaying ? (
-        <button type="button" id="play" onClick={handlePause}>
-          <img alt="pause" className="icon" src="/pause.svg" />
-        </button>
-      ) : (
-        <button type="button" id="play" onClick={handlePlay}>
-          <img alt="play" className="icon" src="/play.svg" />
-        </button>
-      )}
-      <button type="button" id="forward" onClick={handleNext}>
-        <img alt="forward" className="icon" src="/forward.svg" />
-      </button>
-    </div>
-  )
-}
-
-function Status({ duration }) {
-  return (
-    <div
-      className="flex mt-4 items-center justify-center w-full text-md"
-      id="bar"
-    >
-      <p className="text-gray-400 font-semibold">4.10</p>
-      <div id="slider">
-        <div style={{ width: '50%' }} />
-        <div style={{ left: '50%' }} />
-      </div>
-      <p className="text-gray-400 font-semibold">{duration}</p>
-    </div>
-  )
-}
-
-function HistoryItem({ order, title, author, duration }) {
-  return (
-    <li className="flex items-center">
-      <div />
-      <div className="flex items-center">
-        <p>
-          <span className="font-semibold text-lg">
-            #{order} - {title}
-          </span>
-          <span className="text-sm text-gray-500">
-            By {author} - {duration}
-          </span>
-        </p>
-        <button type="button">
-          <img alt="play" className="icon" src="/play.svg" />
-        </button>
-      </div>
-    </li>
-  )
-}
-
-function History({ history }) {
-  return (
-    <div id="history">
-      <h3 className="font-semibold text-xl text-gray-600">Recently played</h3>
-      <ul className="list-style-none">
-        {history?.map((podcast) => (
-          <HistoryItem
-            key={podcast.id}
-            order={podcast.order}
-            title={podcast.title}
-            duration={podcast.duration}
-            author={podcast.author}
-          />
-        ))}
-      </ul>
-    </div>
-  )
-}
-
+// Statisk liste med podcasts
 const podcasts = [
   {
     id: 1,
@@ -169,30 +37,43 @@ const podcasts = [
 ]
 
 export default function App() {
+  // To tilstander vi ønsker å lagre
+  // isPlaying er en boolean vi oppdaterer for å vise play eller pause knapp
+  // setIsPlaying brukes til å oppdatere isPlaying. Den er en funksjon vi får fra useState
   const [isPlaying, setIsPlaying] = useState(false)
+
+  // current er verdien som holder på hvilken Podcast vi skal vise
+  // setCurrent brukes til å oppdatere current. Den er en funksjon vi får fra useState
+  // current må bo her da det er flere applikasjoner som må kjenne til verdien
   const [current, setCurrent] = useState(0)
 
+  // Under er diverse funksjoner vi sender til Action og trigges ved klikk på knappene i Action
   const handleBack = () => {
     console.log('CLICKED BACK')
+    // Reduserer verdien av "gammel state" (current) med 1
     setCurrent((prev) => prev - 1)
   }
 
   const handlePlay = () => {
     console.log('PLAY')
+    // Setter isPlaying til det motsatte av det den var
     setIsPlaying(!isPlaying)
   }
 
   const handlePause = () => {
     console.log('PAUSE')
+    // Setter isPlaying til det motsatte av det den var
     setIsPlaying(!isPlaying)
   }
 
   return (
     <main>
+      {/* Sender props og verdier til komponenten */}
       <Navbar title="Now playing" />
       <Screen />
       <Podcast podcast={podcasts[current]} />
       <Status duration={podcasts[current]?.duration} />
+      {/* Sender props og verdier / funksjoner til komponenten */}
       <Action
         isPlaying={isPlaying}
         setCurrent={setCurrent}

@@ -1,3 +1,6 @@
+// Tar inn title som prop så vi får en dynamisk Navbar
+// Må huske stor forbokstav i komponent
+// Må huske export default
 export default function Navbar({ title }) {
   return (
     <nav>
