@@ -1,12 +1,8 @@
-import { MainHeading } from '../styles/styled/Styles'
-
-function MyComponent() {
+export default function MyComponent() {
   return (
     <div>
-      <MainHeading>Component</MainHeading>
+      <h1>Component</h1>
       <button type="button">Test</button>
     </div>
   )
 }
-
-export default MyComponent
