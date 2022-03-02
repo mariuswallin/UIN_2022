@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Form() {
+  const navigate = useNavigate()
   const [comment, setComment] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -15,6 +17,7 @@ export default function Form() {
     setTimeout(() => {
       setSuccess(true)
       setLoading(false)
+      navigate('/produkter')
     }, 2000)
     // console.log(comment)
   }

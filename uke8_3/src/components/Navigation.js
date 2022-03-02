@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom'
+
 export default function Navigation() {
   return (
     <header>
@@ -7,10 +9,10 @@ export default function Navigation() {
         </a>
         <ul>
           <li>
-            <a href="#">Hjem</a>
+            <NavLink to="hjem">Hjem</NavLink>
           </li>
           <li>
-            <a href="#">Produkter</a>
+            <NavLink to="produkter">Produkter</NavLink>
           </li>
           <li>
             <a href="#">Tjenester</a>

@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 // TODO: Kommenter ut om du ønsker å bruke .scss
 import './styles/scss/main.scss'
@@ -8,4 +9,9 @@ import './styles/scss/main.scss'
 
 import App from './App'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root')
+)
