@@ -14,7 +14,6 @@ export default {
       title: 'Slug',
       options: {
         source: 'title',
-        maxLength: 200,
         slugify: (input) =>
           input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
       },
@@ -25,6 +24,12 @@ export default {
       name: 'questions',
       type: 'array',
       of: [{ type: 'question' }],
+    },
+    {
+      title: 'Kategori',
+      name: 'category',
+      type: 'reference',
+      to: { type: 'category' },
     },
   ],
 }

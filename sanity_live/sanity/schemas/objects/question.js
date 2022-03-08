@@ -15,10 +15,11 @@ export default {
       type: 'array',
       validation: (Rule) =>
         Rule.custom((answeres) => {
-          console.log(answeres)
-          return answeres?.filter((answer) => answer?.correct)?.length > 0
+          // console.log(answeres)
+          return answeres?.filter((answer) => answer?.correct)?.length > 0 ||
+            answeres?.length === 0
             ? true
-            : 'Must have one correct answere'
+            : 'Må ha minst ett riktig svar'
         }),
       of: [{ type: 'answere' }],
     },
