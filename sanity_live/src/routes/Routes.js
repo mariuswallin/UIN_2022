@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route, Outlet, useParams, Link } from 'react-router-dom'
 import { getQuiz, getQuizByCategory, getQuizzes } from '../lib/services/quiz'
 
@@ -79,16 +79,16 @@ const questions = [
     id: '1',
     title: 'Title one',
     answers: [
-      { id: 1, title: 'Answer one', correct: false },
-      { id: 2, title: 'Answer two', correct: true },
+      { id: '1', title: 'Answer one', correct: false },
+      { id: '2', title: 'Answer two', correct: true },
     ],
   },
   {
     id: '2',
     title: 'Title two',
     answers: [
-      { id: 1, title: 'Answer one', correct: false },
-      { id: 2, title: 'Answer two', correct: true },
+      { id: '1', title: 'Answer one', correct: false },
+      { id: '2', title: 'Answer two', correct: true },
     ],
   },
 ]
@@ -114,7 +114,6 @@ function QuizComplete() {
     <div className="h-screen w-full bg-cyan-900">
       <div className="mx-auto max-w-3xl pt-6 text-white">
         <h1 className="text-xl font-bold">{quiz?.title}</h1>
-        {/* <p>{JSON.stringify(quiz)}</p> */}
         {current && current > 0 && (
           <div className="relative mt-12 flex items-center gap-12 pt-1">
             <div className="flex items-center justify-between">
@@ -135,19 +134,31 @@ function QuizComplete() {
           </div>
         )}
         <Question
-          title={questions[current].title}
+          title={questions[current - 1].title}
           progress={progress}
-          answers={questions[current].answers}
+          answers={questions[current - 1].answers}
+          isDone={questions.length <= current}
         />
       </div>
     </div>
   )
 }
 
-function Question({ progress, title, answers }) {
+function Question({ progress, title, answers, isDone }) {
+  const [checked, setChecked] = useState(null)
+  const [isFail, setFail] = useState(false)
+
+  const isChecked = (answer) => checked?.id === answer?.id
+
   const handleAnswer = () => {
-    console.log('answer')
+    setFail(!checked?.correct)
+    setChecked(null)
     progress()
+  }
+
+  const updateChecked = (answer) => {
+    setFail(false)
+    setChecked(answer)
   }
 
   return (
@@ -155,29 +166,60 @@ function Question({ progress, title, answers }) {
       {title}
       <fieldset>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {answers.map((answer) => (
-            <label
-              key={answer.id}
-              htmlFor={answer.id}
-              className="group flex cursor-pointer items-center gap-4 rounded-full border py-4 px-6 text-sm font-medium focus:outline-none active:ring-2 active:ring-emerald-400 active:ring-offset-2 sm:flex-1"
-            >
+          {answers.map((answer, index) => (
+            <div className="group mt-8" key={answer.id}>
               <input
                 id={answer.id}
                 type="radio"
                 name="answer"
                 value={answer.title}
-                checked
-                className="sr-only"
+                className="peer appearance-none"
+                onChange={() => updateChecked(answer)}
+                checked={isChecked(answer)}
               />
-              <p>{answer.title}</p>
-            </label>
+              <label
+                htmlFor={answer.id}
+                className={`group flex items-center gap-4 rounded-full bg-white py-4 px-6 text-sm font-medium text-black hover:bg-cyan-800 ${
+                  isChecked(answer)
+                    ? 'pointer-events-none hover:cursor-default'
+                    : 'cursor-pointer'
+                } peer-checked:bg-cyan-500 sm:flex-1`}
+              >
+                <span
+                  className={`flex h-8 w-8 items-center justify-center rounded-full p-2  ${
+                    isChecked(answer)
+                      ? 'bg-white text-gray-800'
+                      : 'bg-cyan-700 text-white group-hover:bg-white group-hover:text-gray-800'
+                  }`}
+                >
+                  {index}
+                </span>
+                {answer.title}
+              </label>
+            </div>
           ))}
         </div>
       </fieldset>
-      <p>Beklager, svaret er feil</p>
-      <button type="button" onClick={handleAnswer}>
-        Neste
-      </button>
+      {isFail ? <p>Beklager, feil svar</p> : null}
+      {isDone ? (
+        <button
+          type="button"
+          disabled={!checked}
+          className="ml-auto mt-6 flex items-center gap-4 rounded-full bg-orange-400 py-4 px-6 text-sm font-medium text-black disabled:bg-opacity-40"
+          onClick={handleAnswer}
+        >
+          Fullfør
+        </button>
+      ) : (
+        <button
+          type="button"
+          disabled={!checked}
+          className="ml-auto mt-6 flex items-center gap-4 rounded-full bg-orange-400 py-4 px-6 text-sm font-medium text-black disabled:bg-opacity-40"
+          onClick={handleAnswer}
+        >
+          Neste
+        </button>
+      )}
     </article>
   )
 }
