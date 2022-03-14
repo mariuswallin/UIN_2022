@@ -21,6 +21,6 @@
   "[jsonc]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
-  // "eslint.workingDirectories": ["./base_custom"]
+  },
+  "eslint.workingDirectories": ["./sanity_live"]
 }
