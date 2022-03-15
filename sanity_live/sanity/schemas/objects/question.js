@@ -10,6 +10,24 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      title: 'Tekst',
+      name: 'content',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+        },
+      ],
+    },
+    {
+      title: 'Kode',
+      name: 'code',
+      type: 'code',
+      options: {
+        theme: 'github',
+      },
+    },
+    {
       title: 'Svar',
       name: 'answeres',
       type: 'array',
