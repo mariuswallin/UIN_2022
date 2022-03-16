@@ -19,3 +19,8 @@ export async function getQuizByCategory(category) {
   )
   return data
 }
+
+export async function getQuizBySlug(slug) {
+  const data = await client.fetch(`*[_type == "quiz" && slug.current == $slug]{${fields}}`, {slug})
+  return data?.[0]
+}

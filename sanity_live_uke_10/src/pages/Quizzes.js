@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getQuizByCategory, getQuizzes } from '../lib/services/quiz'
 
@@ -22,6 +22,7 @@ const categories = ['Sanity', 'React']
 export default function Quizzes() {
 
   const [content, setContent] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const handleFilter = async (event) => {
     const category = event.target.value.toLowerCase()
@@ -32,6 +33,20 @@ export default function Quizzes() {
       data = await getQuizByCategory(category)
     }
     setContent(data)
+  }
+
+  useEffect(() => {
+    const listQuizzes = async () => {
+      setLoading(true)
+      const data = await getQuizzes()
+      setLoading(false)
+      setContent(data)
+    }
+    listQuizzes()
+  }, [])
+
+  if(loading) {
+    return <p>Henter data ...</p>
   }
 
   return (
