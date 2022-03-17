@@ -8,6 +8,7 @@ const fields = `
 `
 
 const quizFields = `
+  "id": _id,
   _key,
   title,
   "slug": slug.current,
@@ -32,5 +33,31 @@ export async function getQuizByCategory(category) {
     `*[_type == "quiz" && category->name.current==$category]{${fields}}`,
     { category }
   )
+  return data
+}
+
+export async function getPlays(email) {
+  const query = `*[_type == "game" && email==$email]{...}`
+  const data = await client.fetch(query, { email })
+  return data
+}
+
+export async function getPlay({ email, quizId }) {
+  const query = `*[_type == "game" && email==$email && quiz->_id==$quizId]{...}`
+  const data = await client.fetch(query, { email, quizId })
+  return data?.[0]
+}
+
+export async function createPlay({ email, quizId }) {
+  const data = await client.create({
+    _type: 'game',
+    email,
+    quiz: {
+      _type: 'reference',
+      _ref: quizId,
+    },
+  })
+  console.log(data)
+  console.log(quizId)
   return data
 }

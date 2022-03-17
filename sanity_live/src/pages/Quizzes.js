@@ -12,6 +12,7 @@ export default function Quizzes() {
     const listQuizzes = async () => {
       setLoading(true)
       const data = await getQuizzes()
+
       setContent(data)
       setLoading(false)
     }

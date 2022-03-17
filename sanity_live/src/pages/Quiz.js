@@ -1,14 +1,25 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import Answers from '../components/Answers'
 import Next from '../components/Next'
 import Progress from '../components/Progress'
 import Question from '../components/Question'
-import { getQuiz } from '../lib/services/quiz'
+import { createPlay, getPlay, getQuiz } from '../lib/services/quiz'
+
+const validEmail = (email) => {
+  const removedCurl = email.split('@')
+  const removedDot = removedCurl.join('').split('.')
+  const invalid = removedCurl.filter(
+    (value) => !value || value === null || value?.length === 0
+  )
+  return invalid?.length === 0 && removedDot[1]?.length >= 2
+}
 
 export default function Quiz() {
   const { slug } = useParams()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState('')
   const [quiz, setQuiz] = useState({})
   const [answers, setAnswers] = useState([])
   const [searchParams, setSearchParams] = useSearchParams()
@@ -27,7 +38,6 @@ export default function Quiz() {
   useEffect(() => {
     const getQuizData = async () => {
       setLoading(true)
-
       const data = await getQuiz(slug)
       setQuiz(data)
       setLoading(false)
@@ -35,8 +45,9 @@ export default function Quiz() {
     getQuizData()
   }, [slug])
 
-  const progress = () => {
+  const progress = async () => {
     if (isDone) {
+      await createPlay({ email, quizId: quiz.id })
       setSearchParams(`?done=true`)
     } else {
       setSearchParams(`?question=${question + 1}`)
@@ -55,6 +66,42 @@ export default function Quiz() {
       answer,
       ...answers.slice(question),
     ])
+  }
+
+  const handleEmailChange = async (event) => {
+    const { value } = event.target
+    if (validEmail(value)) {
+      setEmail(value)
+      // const games = await getPlays(value)
+      const play = await getPlay({ email: value, quizId: quiz.id })
+      if (play?._id) {
+        alert('Du har allerede gjennomført denne quizzen')
+        setTimeout(() => {
+          navigate('/quiz')
+        }, 0)
+      }
+    }
+  }
+
+  if (!email) {
+    return (
+      <div className="w-full max-w-xs">
+        <label
+          htmlFor="email"
+          className="block text-base font-medium text-white"
+        >
+          Email
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          placeholder="name@email.com"
+          onChange={handleEmailChange}
+        />
+      </div>
+    )
   }
 
   if (loading) {
@@ -78,6 +125,7 @@ export default function Quiz() {
       {question && question > 0 && quiz?.questions?.length > 0 ? (
         <>
           <h1 className="text-3xl font-bold">{quiz?.title}</h1>
+          <p className="mt-2 text-sm">Du spiller som {email}</p>
           <Progress current={question} total={quiz?.questions?.length} />
           <Question
             title={currentQuestion?.title}
