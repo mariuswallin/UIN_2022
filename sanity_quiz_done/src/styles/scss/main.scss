@@ -1,0 +1,51 @@
+@import 'reset.scss';
+
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+main {
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+button {
+  border:none;
+  background: none;
+}
+
+.btn {
+  border: 1px solid teal;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+}
+
+p, li {
+  font-size: 1.5rem;
+}
+
+select {
+  margin-bottom: 2rem;
+}
