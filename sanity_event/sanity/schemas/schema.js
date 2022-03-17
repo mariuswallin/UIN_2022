@@ -6,9 +6,17 @@ import category from "./documents/category";
 import content from "./objects/content";
 import customImage from "./objects/customImage";
 import organizer from "./objects/organizer";
+import contact from "./documents/contact";
 
 // legger event til i types under
 export default createSchema({
   name: "default",
-  types: schemaTypes.concat([event, category, content, customImage, organizer]),
+  types: schemaTypes.concat([
+    event,
+    category,
+    content,
+    customImage,
+    organizer,
+    contact,
+  ]),
 });

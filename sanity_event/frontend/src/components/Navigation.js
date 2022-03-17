@@ -19,6 +19,11 @@ function Navigation() {
               Events
             </NavLink>
           </li>
+          <li>
+            <NavLink className={link} to="/kontakt">
+              Kontakt
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>
