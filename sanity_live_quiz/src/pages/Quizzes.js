@@ -2,32 +2,31 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getQuizByCategory, getQuizzes } from '../lib/services/quiz'
 
-const quizzes = [
-  {
-    id: '1',
-    title: 'test',
-    slug: 'slug-1',
-    category: 'react',
-  },
-  {
-    id: '2',
-    title: 'test 2',
-    slug: 'slug-2',
-    category: 'sanity',
-  },
-]
+// const quizzes = [
+//   {
+//     id: '1',
+//     title: 'test',
+//     slug: 'slug-1',
+//     category: 'react',
+//   },
+//   {
+//     id: '2',
+//     title: 'test 2',
+//     slug: 'slug-2',
+//     category: 'sanity',
+//   },
+// ]
 
 const categories = ['Sanity', 'React']
 
 export default function Quizzes() {
-
   const [content, setContent] = useState([])
   const [loading, setLoading] = useState(false)
 
   const handleFilter = async (event) => {
     const category = event.target.value.toLowerCase()
-    let data;
-    if(category === 'alle') {
+    let data
+    if (category === 'alle') {
       data = await getQuizzes()
     } else {
       data = await getQuizByCategory(category)
@@ -45,7 +44,7 @@ export default function Quizzes() {
     listQuizzes()
   }, [])
 
-  if(loading) {
+  if (loading) {
     return <p>Henter data ...</p>
   }
 
@@ -65,7 +64,11 @@ export default function Quizzes() {
         onChange={handleFilter}
       >
         <option value="Alle">Alle</option>
-        {categories.map((category) =>(<option key={category} value={category}>{category}</option>))}
+        {categories.map((category) => (
+          <option key={category} value={category}>
+            {category}
+          </option>
+        ))}
       </select>
       <ul className="mt-4 list-inside list-disc">
         {content?.map((quiz) => (
