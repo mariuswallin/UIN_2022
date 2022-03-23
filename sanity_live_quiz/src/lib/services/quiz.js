@@ -1,13 +1,13 @@
 import client from '../client'
 
 const quizzesFields = `
-  id,
+  _id,
   title,
   "slug": slug.current,
   "category": category->name.current,
 `
 const quizFields = `
-  id,
+  _id,
   title,
   "slug": slug.current,
   "category": category->name.current,
@@ -33,4 +33,21 @@ export async function getQuizBySlug(slug) {
     { slug }
   )
   return data?.[0]
+}
+
+export async function createGame({ email, quizId }) {
+  let data
+  try {
+    data = await client.create({
+      _type: 'game',
+      email,
+      quiz: {
+        _type: 'reference',
+        _ref: quizId,
+      },
+    })
+  } catch (error) {
+    return 'Noe gikk galt'
+  }
+  return data
 }

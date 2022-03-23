@@ -5,7 +5,6 @@ export default function Answer({
   isFail,
 }) {
   const isChecked = () => checkedAnswer?._key === answer?._key
-  console.log(checkedAnswer, isFail)
   return (
     <div>
       <label htmlFor={answer?._key}>
