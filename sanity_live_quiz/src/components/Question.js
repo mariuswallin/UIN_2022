@@ -1,3 +1,3 @@
-export default function Question() {
-  return <h2>Question</h2>
+export default function Question({ title }) {
+  return <h2 className="text-lg text-white">{title}</h2>
 }
